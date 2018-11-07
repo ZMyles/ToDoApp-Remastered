@@ -13,7 +13,7 @@ const inputs = {
       <ol >
         <li ng-repeat="item in $ctrl.toDoList"> 
           <span>{{item.task}}</span>
-        <button>Completed</button> <div>X</div></li>
+        <button>Completed</button> <div ng-click="$ctrl.removeTask();">X</div></li>
 
        
       </ol>
@@ -21,8 +21,10 @@ const inputs = {
       
   </form>
 
-  <input type="text" placeholder="Add to list." ng-model="task"> <button ng-click="$ctrl.addTask(task) task=''">Add</button>
-  `, controller: [function toDoController() {
+  <input type="text" placeholder="Add to list." ng-model="task"> <button ng-click="$ctrl.addTask(task); task=''">Add</button>
+  `, 
+  
+  controller: [function toDoController() {
     const vm = this;
     vm.toDoList = [ {
       task:"Do my homework.",
@@ -43,11 +45,12 @@ const inputs = {
 
   console.log(vm.toDoList)
 
-  //Remove from list
+  //Remove from List
   vm.removeTask = (index) => {
     vm.toDoList.splice(index,1);
   }
 
+  //Add to List
   vm.addTask = (newTask) => {
     vm.toDoList.push({
       task: newTask,
