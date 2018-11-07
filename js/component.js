@@ -6,19 +6,25 @@ const inputs = {
   
   <span>A place to store the things you need to do!</span>
 
-  <form>
-      <input type="text" placeholder="Filter you're list.">
-      <ol>
-        <li> <button>Completed</button> <div>X</div>
+  <input type="text" placeholder="Filter you're list.">
 
-        <input type="text" placeholder="Add to list.">
+  <form >
+      
+      <ol >
+        <li ng-repeat="item in $ctrl.toDoList"> 
+          <span>{{item.task}}</span>
+        <button>Completed</button> <div>X</div></li>
+
+       
       </ol>
 
       
   </form>
-  `, controller: function() {
+
+  <input type="text" placeholder="Add to list." ng-model="task"> <button ng-click="$ctrl.addTask(task) task=''">Add</button>
+  `, controller: [function toDoController() {
     const vm = this;
-    vm.toDolist = [ {
+    vm.toDoList = [ {
       task:"Do my homework.",
       classes:{completed: false}
     },
@@ -26,15 +32,30 @@ const inputs = {
     {
       task: "Go to store.",
       classes: {completed: true}
+    },
+
+    {
+      task: "Breath",
+      classes: {completed: true}
     }
+
   ]
 
-  console.log(vm.toDolist)
+  console.log(vm.toDoList)
+
   //Remove from list
   vm.removeTask = (index) => {
-    vm.toDolist.splice(index,1);
+    vm.toDoList.splice(index,1);
   }
+
+  vm.addTask = (newTask) => {
+    vm.toDoList.push({
+      task: newTask,
+      classes: {completed: false}
+    })
+    
   }
+  }]
 
   
 }
